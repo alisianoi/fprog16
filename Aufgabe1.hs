@@ -16,3 +16,8 @@ extractDigits [] = []
 extractDigits (x:xs)
   | isDigit x = x : extractDigits xs
   | otherwise = extractDigits xs
+
+convert :: String -> Integer
+convert s
+  | extractDigits s == "" = 0
+  | otherwise = (read $ extractDigits s) :: Integer
