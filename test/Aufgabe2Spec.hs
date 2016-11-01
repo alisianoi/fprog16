@@ -53,3 +53,5 @@ spec = do
       sL2pO2 ["-42"] `shouldBe` [-1]
     it "a few others" $ do
       sL2pO2 ["0", "1", "2", "3", "4"] `shouldBe` [-1, 0, 1, -1, 2]
+    it "a few from the task" $ do
+      sL2pO2 ["00", "007", "008"] `shouldBe` [-1, -1, 3]
