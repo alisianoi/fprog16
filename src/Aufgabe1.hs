@@ -4,7 +4,7 @@ import Data.Char (isDigit)
 
 facInv :: Integer -> Integer
 facInv m
-  | m <= 0 = -1
+  | m <= 1 = -1
   | otherwise = facInv' m 1
 
 facInv' :: Integer -> Integer -> Integer

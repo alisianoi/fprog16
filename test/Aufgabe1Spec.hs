@@ -9,7 +9,7 @@ spec :: Spec
 spec = do
   describe "factorial" $ do
     it "m = 1" $ do
-      facInv 1 `shouldBe` 0
+      facInv 1 `shouldBe` -1
     it "m = 2" $ do
       facInv 2 `shouldBe` 2
     it "m = 3" $ do
