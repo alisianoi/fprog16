@@ -46,3 +46,10 @@ spec = do
       isPowOf2 4 `shouldBe` (True, 2)
     it "five" $ do
       isPowOf2 5 `shouldBe` (False, -1)
+  describe "sL2pO2" $ do
+    it "empty" $ do
+      sL2pO2 [] `shouldBe` []
+    it "negative" $ do
+      sL2pO2 ["-42"] `shouldBe` [-1]
+    it "a few others" $ do
+      sL2pO2 ["0", "1", "2", "3", "4"] `shouldBe` [-1, 0, 1, -1, 2]

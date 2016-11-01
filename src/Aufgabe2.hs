@@ -43,4 +43,6 @@ isPowOf2' n m
   | n `mod` 2 == 0 = isPowOf2' (n `div` 2) (m + 1)
   | otherwise = (False, -1)
 
--- sL2pO2 :: [String] -> [Int]
+sL2pO2 :: [String] -> [Int]
+sL2pO2 [] = []
+sL2pO2 (s:ss) = (snd $ isPowOf2 $ read s :: Int) : sL2pO2 ss
