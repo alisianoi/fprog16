@@ -23,3 +23,11 @@ spec = do
       factsL 5 `shouldBe` [120, 24, 6, 2, 1, 1]
     it "n = -5" $ do
       factsL (-5) `shouldBe` []
+  describe "extractNumerals" $ do
+    it "empty" $ do
+      extractNumerals "" `shouldBe` []
+    it "no digits" $ do
+      extractNumerals "abcDEFghi" `shouldBe` []
+    it "a16B008Lk123n1151248cvK" $ do
+      extractNumerals "a16B008Lk1234n1151248cvK"
+        `shouldBe` ["16", "008", "1234", "1151248"]
