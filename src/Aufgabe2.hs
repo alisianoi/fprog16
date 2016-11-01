@@ -31,3 +31,16 @@ extractNumerals s@(c:_)
       in
         digits : extractNumerals suffix
   | otherwise = extractNumerals $ dropWhile isAlpha s
+
+isPowOf2 :: Int -> (Bool, Int)
+isPowOf2 n
+  | n <= 0 = (False, -1)
+  | otherwise = isPowOf2' n 0
+
+isPowOf2' :: Int -> Int -> (Bool, Int)
+isPowOf2' 1 m = (True, m)
+isPowOf2' n m
+  | n `mod` 2 == 0 = isPowOf2' (n `div` 2) (m + 1)
+  | otherwise = (False, -1)
+
+-- sL2pO2 :: [String] -> [Int]

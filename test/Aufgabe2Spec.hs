@@ -31,3 +31,18 @@ spec = do
     it "a16B008Lk123n1151248cvK" $ do
       extractNumerals "a16B008Lk1234n1151248cvK"
         `shouldBe` ["16", "008", "1234", "1151248"]
+  describe "isPowOf2" $ do
+    it "negative" $ do
+      isPowOf2 (-42) `shouldBe` (False, -1)
+    it "zero" $ do
+      isPowOf2 0 `shouldBe` (False, -1)
+    it "one" $ do
+      isPowOf2 1 `shouldBe` (True, 0)
+    it "two" $ do
+      isPowOf2 2 `shouldBe` (True, 1)
+    it "three" $ do
+      isPowOf2 3 `shouldBe` (False, -1)
+    it "four" $ do
+      isPowOf2 4 `shouldBe` (True, 2)
+    it "five" $ do
+      isPowOf2 5 `shouldBe` (False, -1)
