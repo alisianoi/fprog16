@@ -46,3 +46,15 @@ isPowOf2' n m
 sL2pO2 :: [String] -> [Int]
 sL2pO2 [] = []
 sL2pO2 (s:ss) = (snd $ isPowOf2 $ read s :: Int) : sL2pO2 ss
+
+curry3 :: ((a, b, c) -> d) -> a -> b -> c -> d
+curry3 f x y z = f (x, y, z)
+
+uncurry3 :: (a -> b -> c -> d) -> (a, b, c) -> d
+uncurry3 f (x, y, z) = f x y z
+
+curry4 :: ((a, b, c, d) -> e) -> a -> b -> c -> d -> e
+curry4 f w x y z = f (w, x, y, z)
+
+uncurry4 :: (a -> b -> c -> d -> e) -> (a, b, c, d) -> e
+uncurry4 f (w, x, y, z) = f w x y z
