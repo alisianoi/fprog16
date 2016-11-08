@@ -100,3 +100,19 @@ bwd' (d:ds)
   | d == Two  = One  : ds
   | otherwise = Two  : bwd' ds
 \end{code}
+
+\begin{code}
+numAdd :: Numeral -> Numeral -> Numeral
+numAdd x y = canonize $ numAdd' (canonize x) (canonize y)
+
+numAdd' :: Numeral -> Numeral -> Numeral
+numAdd' x y = numAdd'' (Num (Pos, [Zero])) x y
+
+numAdd'' :: Numeral -> Numeral -> Numeral -> Numeral
+numAdd'' t x@(Num (sx, dx)) y@(Num (sy, dy))
+  | sx == Pos && dx /= [Zero] = numAdd'' (inc t) (dec x) y
+  | sx == Neg                 = numAdd'' (dec t) (inc x) y
+  | sy == Pos && dy /= [Zero] = numAdd'' (inc t) x (dec y)
+  | sy == Neg                 = numAdd'' (dec t) x (inc y)
+  | otherwise = t
+\end{code}

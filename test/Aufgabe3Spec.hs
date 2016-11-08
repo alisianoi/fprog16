@@ -81,3 +81,25 @@ spec = do
     it "Num (Pos, [One, Zero, Zero])" $ do
       dec (Num (Pos, [One, Zero, Zero]))
         `shouldBe` Num (Pos, [Two, Two])
+  describe "numAdd" $ do
+    it "0 + 0" $ do
+      numAdd (Num (Pos, [Zero])) (Num (Pos, [Zero]))
+        `shouldBe` (Num (Pos, [Zero]))
+    it "2 + 1" $ do
+      numAdd (Num (Pos, [Two])) (Num (Pos, [One]))
+        `shouldBe` (Num (Pos, [One, Zero]))
+    it "1 + 2" $ do
+      numAdd (Num (Pos, [One])) (Num (Pos, [Two]))
+        `shouldBe` (Num (Pos, [One, Zero]))
+    it "1 - 2" $ do
+      numAdd (Num (Pos, [One])) (Num (Neg, [Two]))
+        `shouldBe` (Num (Neg, [One]))
+    it "-2 + 1" $ do
+      numAdd (Num (Neg, [Two])) (Num (Pos, [One]))
+        `shouldBe` (Num (Neg, [One]))
+    it "2 - 1" $ do
+      numAdd (Num (Pos, [Two])) (Num (Neg, [One]))
+        `shouldBe` (Num (Pos, [One]))
+    it "-1 + 2" $ do
+      numAdd (Num (Neg, [One])) (Num (Pos, [Two]))
+        `shouldBe` (Num (Pos, [One]))
