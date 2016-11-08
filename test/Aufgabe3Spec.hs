@@ -22,3 +22,16 @@ spec = do
     it "Num (Neg, [Zero, Zero, Two, One, Zero])" $ do
       canonize (Num (Neg, [Zero, Zero, Two, One, Zero]))
         `shouldBe` Num (Neg, [Two, One, Zero])
+  describe "int2num" $ do
+    it "0" $ do
+      int2num 0 `shouldBe` Num (Pos, [Zero])
+    it "-0" $ do
+      int2num (-0) `shouldBe` Num (Pos, [Zero])
+    it "1" $ do
+      int2num 1 `shouldBe` Num (Pos, [One])
+    it "-1" $ do
+      int2num (-1) `shouldBe` Num (Neg, [One])
+    it "2" $ do
+      int2num 2 `shouldBe` Num (Pos, [Two])
+    it "-2" $ do
+      int2num (-2) `shouldBe` Num (Neg, [Two])
