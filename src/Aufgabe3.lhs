@@ -33,10 +33,29 @@ int2num n
 int2num' :: Integer -> Digits
 int2num' 0 = [Zero]
 int2num' n
-  | r == 0 = Zero : int2num' q
-  | r == 1 = One  : int2num' q
-  | r == 2 = Two  : int2num' q
+  | r == 0    = Zero : int2num' q
+  | r == 1    = One  : int2num' q
+  | otherwise = Two  : int2num' q
   where
     q = div n 3
     r = mod n 3
+\end{code}
+
+\begin{code}
+num2int :: Numeral -> Integer
+num2int n = num2int' $ canonize n
+
+num2int' :: Numeral -> Integer
+num2int' (Num (s, ds))
+  | s == Neg = -f ds
+  | otherwise = f ds
+  where f xs = num2int'' 0 $ reverse xs
+
+
+num2int'' :: Integer -> Digits -> Integer
+num2int'' total [] = total
+num2int'' total (d:ds)
+  | d == Zero = num2int'' (3 * total + 0) ds
+  | d == One  = num2int'' (3 * total + 1) ds
+  | otherwise = num2int'' (3 * total + 2) ds
 \end{code}
