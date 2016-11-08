@@ -17,7 +17,7 @@ extra-source-files:  ChangeLog.md
 cabal-version:       >=1.10
 
 library
-  exposed-modules:     Aufgabe1, Aufgabe2
+  exposed-modules:     Aufgabe1, Aufgabe2, Aufgabe3
   -- other-modules:
   -- other-extensions:
   build-depends:       base
