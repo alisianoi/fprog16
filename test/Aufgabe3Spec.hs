@@ -43,3 +43,41 @@ spec = do
         `shouldBe` -10
     it "Num (Neg, [Zero])" $ do
       num2int (Num (Neg, [Zero])) `shouldBe` 0
+  describe "inc" $ do
+    it "Num (Pos, [Zero])" $ do
+      inc (Num (Pos, [Zero])) `shouldBe` Num (Pos, [One])
+    it "Num (Pos, [One])" $ do
+      inc (Num (Pos, [One])) `shouldBe` Num (Pos, [Two])
+    it "Num (Pos, [Two])" $ do
+      inc (Num (Pos, [Two])) `shouldBe` Num (Pos, [One, Zero])
+    it "Num (Pos, [Two, Two, Two])" $ do
+      inc (Num (Pos, [Two, Two, Two]))
+        `shouldBe` Num (Pos, [One, Zero, Zero, Zero])
+    it "Num (Neg, [One])" $ do
+      inc (Num (Neg, [One]))
+        `shouldBe` Num (Pos, [Zero])
+    it "Num (Neg, [Two])" $ do
+      inc (Num (Neg, [Two]))
+        `shouldBe` Num (Neg, [One])
+    it "Num (Neg, [One, Zero])" $ do
+      inc (Num (Neg, [One, Zero]))
+        `shouldBe` Num (Neg, [Two])
+    it "Num (Neg, [One, Zero, Zero])" $ do
+      inc (Num (Neg, [One, Zero, Zero]))
+        `shouldBe` Num (Neg, [Two, Two])
+  describe "dec" $ do
+    it "Num (Pos, [Zero])" $ do
+      dec (Num (Pos, [Zero]))
+        `shouldBe` Num (Neg, [One])
+    it "Num (Pos, [One])" $ do
+      dec (Num (Pos, [One]))
+        `shouldBe` Num (Pos, [Zero])
+    it "Num (Pos [Two])" $ do
+      dec (Num (Pos, [Two]))
+        `shouldBe` Num (Pos, [One])
+    it "Num (Pos, [One, Zero])" $ do
+      dec (Num (Pos, [One, Zero]))
+        `shouldBe` Num (Pos, [Two])
+    it "Num (Pos, [One, Zero, Zero])" $ do
+      dec (Num (Pos, [One, Zero, Zero]))
+        `shouldBe` Num (Pos, [Two, Two])

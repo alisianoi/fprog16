@@ -12,7 +12,7 @@ newtype Numeral = Num (Sign,Digits) deriving (Eq,Show)
 
 
 Treat Num (_, []) with an error because cabal build complains about
-unmatched patterns otherwise
+unmatched patterns otherwise. Use this error further in num2int.
 \begin{code}
 canonize :: Numeral -> Numeral
 canonize (Num (_, []))         = error "Invalid Argument"
@@ -41,6 +41,9 @@ int2num' n
     r = mod n 3
 \end{code}
 
+Implementing it with a foldl did not look "good", so just plain guards
+and helper functions to the rescue once again.
+
 \begin{code}
 num2int :: Numeral -> Integer
 num2int n = num2int' $ canonize n
@@ -58,4 +61,42 @@ num2int'' total (d:ds)
   | d == Zero = num2int'' (3 * total + 0) ds
   | d == One  = num2int'' (3 * total + 1) ds
   | otherwise = num2int'' (3 * total + 2) ds
+\end{code}
+
+\begin{code}
+inc :: Numeral -> Numeral
+inc n = canonize $ inc' $ canonize n
+
+dec :: Numeral -> Numeral
+dec n = canonize $ dec' $ canonize n
+
+inc' :: Numeral -> Numeral
+inc' (Num (Neg, [One])) = Num (Pos, [Zero])
+inc' (Num (Pos, ds))    = Num (Pos, xfwd ds)
+inc' (Num (Neg, ds))    = Num (Neg, xbwd ds)
+
+dec' :: Numeral -> Numeral
+dec' (Num (Pos, [Zero])) = Num (Neg, [One])
+dec' (Num (Pos, ds))     = Num (Pos, xbwd ds)
+dec' (Num (Neg, ds))     = Num (Neg, xfwd ds)
+
+xfwd :: Digits -> Digits
+xfwd xs = reverse $ fwd' $ reverse xs
+
+xbwd :: Digits -> Digits
+xbwd xs = reverse $ bwd' $ reverse xs
+
+fwd' :: Digits -> Digits
+fwd' [] = [One]
+fwd' (d:ds)
+  | d == Zero = One : ds
+  | d == One  = Two : ds
+  | otherwise = Zero : fwd' ds
+
+bwd' :: Digits -> Digits
+bwd' [] = [Zero]
+bwd' (d:ds)
+  | d == One  = Zero : ds
+  | d == Two  = One  : ds
+  | otherwise = Two  : bwd' ds
 \end{code}
