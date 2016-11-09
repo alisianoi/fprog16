@@ -116,3 +116,25 @@ numAdd'' t x@(Num (sx, dx)) y@(Num (sy, dy))
   | sy == Neg                 = numAdd'' (dec t) x (inc y)
   | otherwise = t
 \end{code}
+
+\begin{code}
+numMult :: Numeral -> Numeral -> Numeral
+numMult x y = canonize $ numMult' (canonize x) (canonize y)
+
+numMult' :: Numeral -> Numeral -> Numeral
+numMult' x@(Num (sx, dx)) y@(Num (sy, dy))
+  | sx == Pos && dx == [Zero] = (Num (Pos, [Zero]))
+  | sy == Pos && dy == [Zero] = (Num (Pos, [Zero]))
+  | sx == Pos && sy == Pos    = numMult'' Pos x               y
+  | sx == Neg && sy == Neg    = numMult'' Pos (Num (Pos, dx)) (Num (Pos, dy))
+  | sx == Pos && sy == Neg    = numMult'' Neg x               (Num (Pos, dy))
+  | sx == Neg && sy == Pos    = numMult'' Neg (Num (Pos, dx)) y
+  | otherwise                 = error "(Num (_, _)) (Num (_, _))?"
+
+numMult'' :: Sign -> Numeral -> Numeral -> Numeral
+numMult'' s x y = numMult''' s x x y
+
+numMult''' :: Sign -> Numeral -> Numeral -> Numeral -> Numeral
+numMult''' s (Num (_, tx)) _ (Num (Pos, [One])) = (Num (s, tx))
+numMult''' s t x y = numMult''' s (numAdd t x) x (dec y)
+\end{code}

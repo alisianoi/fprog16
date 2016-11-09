@@ -103,3 +103,28 @@ spec = do
     it "-1 + 2" $ do
       numAdd (Num (Neg, [One])) (Num (Pos, [Two]))
         `shouldBe` (Num (Pos, [One]))
+  describe "numMult" $ do
+    it "42 * 0" $ do
+      numMult (int2num 42) (int2num 0) `shouldBe` int2num 0
+    it "0 * 42" $ do
+      numMult (int2num 0) (int2num 42) `shouldBe` int2num 0
+    it "(-42) * 0" $ do
+      numMult (int2num (-42)) (int2num 0) `shouldBe` int2num 0
+    it "0 * (-42)" $ do
+      numMult (int2num 0) (int2num (-42)) `shouldBe` int2num 0
+    it "1 * 42" $ do
+      numMult (int2num 1) (int2num 42) `shouldBe` int2num 42
+    it "42 * 1" $ do
+      numMult (int2num 42) (int2num 1) `shouldBe` int2num 42
+    it "1 * (-42)" $ do
+      numMult (int2num 1) (int2num (-42)) `shouldBe` int2num (-42)
+    it "(-42) * 1" $ do
+      numMult (int2num (-42)) (int2num 1) `shouldBe` int2num (-42)
+    it "2 * 2" $ do
+      numMult (int2num 2) (int2num 2) `shouldBe` int2num 4
+    it "(-2) * 2" $ do
+      numMult (int2num (-2)) (int2num 2) `shouldBe` int2num (-4)
+    it "2 * -2" $ do
+      numMult (int2num 2) (int2num (-2)) `shouldBe` int2num (-4)
+    it "-2 * -2" $ do
+      numMult (int2num (-2)) (int2num (-2)) `shouldBe` int2num 4
