@@ -138,3 +138,14 @@ numMult''' :: Sign -> Numeral -> Numeral -> Numeral -> Numeral
 numMult''' s (Num (_, tx)) _ (Num (Pos, [One])) = (Num (s, tx))
 numMult''' s t x y = numMult''' s (numAdd t x) x (dec y)
 \end{code}
+
+\begin{code}
+curryFlip :: ((a, b) -> c) -> b -> a -> c
+curryFlip f x y = f (y, x)
+
+uncurryFlip :: (a -> b -> c) -> (b, a) -> c
+uncurryFlip f (x, y) = f y x
+
+pairFlip :: ((a, b) -> c) -> ((b, a) -> c)
+pairFlip f (x, y) = f(y, x)
+\end{code}
