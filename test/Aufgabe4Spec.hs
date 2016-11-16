@@ -208,6 +208,30 @@ spec = do
     it "bigtree0" $ do
       flatten Up bigtree0 `shouldBe` [16, 32, 64, 128, 256, 512, 1024]
       flatten Down bigtree0 `shouldBe` reverse [16, 32, 64, 128, 256, 512, 1024]
+  describe "size" $ do
+    it "bigtree0" $ do size bigtree0 `shouldBe` 7
+    it "bigtree1" $ do size bigtree1 `shouldBe` 10
+  describe "maxLegth" $ do
+    it "nil" $ do
+      maxLength nil `shouldBe` 0
+    it "bigtree0" $ do
+      maxLength bigtree0 `shouldBe` 3
+    it "bigtree1" $ do
+      maxLength bigtree1 `shouldBe` 5
+  describe "minLegth" $ do
+    it "nil" $ do
+      minLength nil `shouldBe` 0
+    it "bigtree0" $ do
+      minLength bigtree0 `shouldBe` 3
+    it "bigtree1" $ do
+      minLength bigtree1 `shouldBe` 3
+  describe "balancedDegree" $ do
+    it "nil" $ do
+      balancedDegree nil `shouldBe` 0
+    it "bigtree0" $ do
+      balancedDegree bigtree0 `shouldBe` 0
+    it "bigtree1" $ do
+      balancedDegree bigtree1 `shouldBe` 2
 
 
 bigtree0 :: Tree Integer

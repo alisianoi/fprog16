@@ -116,3 +116,34 @@ flatten' o (Node x l r)
   | o == Up = (flatten' o l) ++ [x] ++ (flatten' o r)
   | otherwise = (flatten' o r) ++ [x] ++ (flatten' o l)
 \end{code}
+
+\begin{code}
+size :: Tree a -> Int
+size Nil        = 0
+size (Node _ l r) = 1 + size l + size r
+
+maxLength :: Tree a -> Int
+maxLength t = maxLength' 0 0 t
+
+maxLength' :: Int -> Int -> Tree a -> Int
+maxLength' val cur Nil = if cur > val then cur else val
+maxLength' val cur (Node _ l r) =
+  let lv = maxLength' val (cur + 1) l
+      rv = maxLength' val (cur + 1) r
+  in
+    if lv > rv then lv else rv
+
+minLength :: Tree a -> Int
+minLength t = minLength' (size t) 0 t
+
+minLength' :: Int -> Int -> Tree a -> Int
+minLength' val cur Nil = if cur < val then cur else val
+minLength' val cur (Node _ l r) =
+  let lv = minLength' val (cur + 1) l
+      rv = minLength' val (cur + 1) r
+  in
+    if lv < rv then lv else rv
+
+balancedDegree :: Tree a -> Int
+balancedDegree t = abs $ (minLength t) - (maxLength t)
+\end{code}
