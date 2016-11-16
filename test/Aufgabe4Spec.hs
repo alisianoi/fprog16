@@ -204,6 +204,10 @@ spec = do
       isValueOf 256 (delete 32 bigtree1) `shouldBe` True
       isValueOf 512 (delete 32 bigtree1) `shouldBe` True
       isValueOf 1024 (delete 32 bigtree1) `shouldBe` True
+  describe "flatten" $ do
+    it "bigtree0" $ do
+      flatten Up bigtree0 `shouldBe` [16, 32, 64, 128, 256, 512, 1024]
+      flatten Down bigtree0 `shouldBe` reverse [16, 32, 64, 128, 256, 512, 1024]
 
 
 bigtree0 :: Tree Integer
