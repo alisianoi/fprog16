@@ -36,6 +36,10 @@ spec = do
     it "-2" $ do
       int2num (-2) `shouldBe` Num (Neg, [Two])
   describe "num2int" $ do
+    it "Num (Pos, [One, Zero])" $ do
+      num2int (Num (Pos, [One, Zero])) `shouldBe` 3
+    it "Num (Neg, [One, Zero])" $ do
+      num2int (Num (Neg, [One, Zero])) `shouldBe` -3
     it "Num (Neg, [One, Zero, One])" $ do
       num2int (Num (Neg, [One, Zero, One])) `shouldBe` -10
     it "Num (Neg, [Zero, Zero, Zero, One, Zero, One])" $ do
@@ -128,3 +132,13 @@ spec = do
       numMult (int2num 2) (int2num (-2)) `shouldBe` int2num (-4)
     it "-2 * -2" $ do
       numMult (int2num (-2)) (int2num (-2)) `shouldBe` int2num 4
+  describe "int2num -> num2int" $ do
+    it "from 0 to hero" $ do
+      map (num2int . int2num) [(-100),(-99)..100] `shouldBe` [(-100),(-99)..100]
+  describe "inc" $ do
+    it "is strong" $ do
+      map (num2int . inc . int2num) [(-100),(-99)..100] `shouldBe` [(-99),(-98)..101]
+  describe "dec" $ do
+    it "is strong" $ do
+      map (num2int . dec . int2num) [(-100),(-99)..100] `shouldBe` [(-101),(-100)..99]
+

@@ -52,7 +52,7 @@ num2int' :: Numeral -> Integer
 num2int' (Num (s, ds))
   | s == Neg = -f ds
   | otherwise = f ds
-  where f xs = num2int'' 0 $ reverse xs
+  where f xs = num2int'' 0 $ xs
 
 
 num2int'' :: Integer -> Digits -> Integer
