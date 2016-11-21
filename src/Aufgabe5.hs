@@ -93,4 +93,24 @@ instance Ord Digit where
     | l == One && r == Two = LT
     | otherwise = GT
 
+instance Ord Numeral where
+  compare (Num (Neg, _)) (Num (Pos, _)) = LT
+  compare (Num (Pos, _)) (Num (Neg, _)) = GT
+  compare l@(Num (ls, lds)) r@(Num (rs, rds)) =
+    if ls == Neg && rs == Neg then
+      if result == LT then GT else if result == GT then LT else EQ
+    else if ls == Pos && rs == Pos then
+      result
+    else
+      error "You have mixed up the signs in compare for Numeral"
+    where result = foo lds rds
 
+foo :: Digits -> Digits -> Ordering
+foo [] [] = EQ
+foo [] _  = LT
+foo _  [] = GT
+foo xs ys =
+  if result == EQ then compare x y else result
+  where x      = tail xs
+        y      = tail ys
+        result = foo (init xs) (init ys)
