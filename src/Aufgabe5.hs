@@ -52,6 +52,75 @@ num2int'' total (d:ds)
   | otherwise = num2int'' (3 * total + 2) ds
 -- probably remove up to here
 
+inc :: Numeral -> Numeral
+inc n = canonize $ inc' $ canonize n
+
+dec :: Numeral -> Numeral
+dec n = canonize $ dec' $ canonize n
+
+inc' :: Numeral -> Numeral
+inc' (Num (Neg, [One])) = Num (Pos, [Zero])
+inc' (Num (Pos, ds))    = Num (Pos, xfwd ds)
+inc' (Num (Neg, ds))    = Num (Neg, xbwd ds)
+
+dec' :: Numeral -> Numeral
+dec' (Num (Pos, [Zero])) = Num (Neg, [One])
+dec' (Num (Pos, ds))     = Num (Pos, xbwd ds)
+dec' (Num (Neg, ds))     = Num (Neg, xfwd ds)
+
+xfwd :: Digits -> Digits
+xfwd xs = reverse $ fwd' $ reverse xs
+
+xbwd :: Digits -> Digits
+xbwd xs = reverse $ bwd' $ reverse xs
+
+fwd' :: Digits -> Digits
+fwd' [] = [One]
+fwd' (d:ds)
+  | d == Zero = One : ds
+  | d == One  = Two : ds
+  | otherwise = Zero : fwd' ds
+
+bwd' :: Digits -> Digits
+bwd' [] = [Zero]
+bwd' (d:ds)
+  | d == One  = Zero : ds
+  | d == Two  = One  : ds
+  | otherwise = Two  : bwd' ds
+
+numAdd :: Numeral -> Numeral -> Numeral
+numAdd x y = canonize $ numAdd' (canonize x) (canonize y)
+
+numAdd' :: Numeral -> Numeral -> Numeral
+numAdd' x y = numAdd'' (Num (Pos, [Zero])) x y
+
+numAdd'' :: Numeral -> Numeral -> Numeral -> Numeral
+numAdd'' t x@(Num (sx, dx)) y@(Num (sy, dy))
+  | sx == Pos && dx /= [Zero] = numAdd'' (inc t) (dec x) y
+  | sx == Neg                 = numAdd'' (dec t) (inc x) y
+  | sy == Pos && dy /= [Zero] = numAdd'' (inc t) x (dec y)
+  | sy == Neg                 = numAdd'' (dec t) x (inc y)
+  | otherwise = t
+
+numMult :: Numeral -> Numeral -> Numeral
+numMult x y = canonize $ numMult' (canonize x) (canonize y)
+
+numMult' :: Numeral -> Numeral -> Numeral
+numMult' x@(Num (sx, dx)) y@(Num (sy, dy))
+  | sx == Pos && dx == [Zero] = (Num (Pos, [Zero]))
+  | sy == Pos && dy == [Zero] = (Num (Pos, [Zero]))
+  | sx == Pos && sy == Pos    = numMult'' Pos x               y
+  | sx == Neg && sy == Neg    = numMult'' Pos (Num (Pos, dx)) (Num (Pos, dy))
+  | sx == Pos && sy == Neg    = numMult'' Neg x               (Num (Pos, dy))
+  | sx == Neg && sy == Pos    = numMult'' Neg (Num (Pos, dx)) y
+  | otherwise                 = error "(Num (_, _)) (Num (_, _))?"
+
+numMult'' :: Sign -> Numeral -> Numeral -> Numeral
+numMult'' s x y = numMult''' s x x y
+
+numMult''' :: Sign -> Numeral -> Numeral -> Numeral -> Numeral
+numMult''' s (Num (_, tx)) _ (Num (Pos, [One])) = (Num (s, tx))
+numMult''' s t x y = numMult''' s (numAdd t x) x (dec y)
 
 -- Digit, Sign, Numeral
 
@@ -114,3 +183,14 @@ foo xs ys =
   where x      = tail xs
         y      = tail ys
         result = foo (init xs) (init ys)
+
+
+instance Num Numeral where
+  negate (Num (s, ds)) =
+    if s == Neg then (Num (Pos, ds)) else canonize (Num (Neg, ds))
+  abs (Num (_, ds)) = (Num (Pos, ds))
+  signum (Num (s, _)) = (Num (s, [One]))
+  (-) l r = numAdd l $ negate r
+  (+) l r = numAdd l r
+  (*) l r = numMult l r
+  fromInteger i = int2num i
