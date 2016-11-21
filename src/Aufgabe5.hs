@@ -1,10 +1,12 @@
 module Aufgabe5 where
 
-data Digit  = Zero | One | Two deriving (Enum,Show)
-type Digits = [Digit]
-data Sign   = Pos | Neg deriving (Show)
+import Data.List
 
-newtype Numeral = Num (Sign,Digits) deriving (Show)
+data Digit  = Zero | One | Two deriving (Enum)
+type Digits = [Digit]
+data Sign   = Pos | Neg
+
+newtype Numeral = Num (Sign,Digits)
 
 
 -- probably remove from here
@@ -68,3 +70,18 @@ instance Eq Numeral where
   Num (ls, lds) == Num (rs, rds)
     | not $ ls == rs = False
     | otherwise = all (== True) $ zipWith (==) lds rds
+
+instance Show Digit where
+  show Zero = show 0
+  show One  = show 1
+  show Two  = show 2
+
+instance Show Sign where
+  show Pos = "+"
+  show Neg = "-"
+
+instance Show Numeral where
+  show n = showCanon $ canonize n
+
+showCanon :: Numeral -> String
+showCanon (Num (s, ds)) = (show s) ++ (intercalate "" $ map (show) ds)
