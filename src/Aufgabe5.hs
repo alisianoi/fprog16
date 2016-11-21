@@ -85,3 +85,12 @@ instance Show Numeral where
 
 showCanon :: Numeral -> String
 showCanon (Num (s, ds)) = (show s) ++ (intercalate "" $ map (show) ds)
+
+instance Ord Digit where
+  compare l r
+    | l == r = EQ
+    | l == Zero = LT
+    | l == One && r == Two = LT
+    | otherwise = GT
+
+
