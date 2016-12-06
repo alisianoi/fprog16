@@ -141,9 +141,9 @@ instance Eq Numeral where
     | otherwise = all (== True) $ zipWith (==) lds rds
 
 instance Show Digit where
-  show Zero = show 0
-  show One  = show 1
-  show Two  = show 2
+  show Zero = show (0 :: Integer)
+  show One  = show (1 :: Integer)
+  show Two  = show (2 :: Integer)
 
 instance Show Sign where
   show Pos = "+"
@@ -153,7 +153,7 @@ instance Show Numeral where
   show n = showCanon $ canonize n
 
 showCanon :: Numeral -> String
-showCanon (Num (s, ds)) = (show s) ++ (intercalate "" $ map (show) ds)
+showCanon (Num (s, ds)) = (show s) ++ (concat(intersperse "" $ map (show) ds))
 
 instance Ord Digit where
   compare l r
@@ -165,7 +165,7 @@ instance Ord Digit where
 instance Ord Numeral where
   compare (Num (Neg, _)) (Num (Pos, _)) = LT
   compare (Num (Pos, _)) (Num (Neg, _)) = GT
-  compare l@(Num (ls, lds)) r@(Num (rs, rds)) =
+  compare (Num (ls, lds)) (Num (rs, rds)) =
     if ls == Neg && rs == Neg then
       if result == LT then GT else if result == GT then LT else EQ
     else if ls == Pos && rs == Pos then
