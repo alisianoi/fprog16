@@ -111,6 +111,17 @@ flattenRL (Node v i l r) = if i <= 0
   then flattenRL r ++ flattenRL l
   else flattenRL r ++ [(v, i)] ++ flattenRL l
 
+isElement :: Ord a => a -> Multiset a -> Int
+isElement v mset = if isMultiset mset then isElement' v mset else -1
+
+isElement' :: Ord a => a -> Multiset a -> Int
+isElement' _ Nil = 0
+isElement' v (Node w i l r)
+  | v == w = i
+  | v <  w = isElement' v l
+  | v >  w = isElement' v r
+  | otherwise = error "Fix isElement'"
+
 bigtree0 :: Tree Integer
 bigtree0 = (
   Node 128 1 (
