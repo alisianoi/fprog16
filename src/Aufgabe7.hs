@@ -75,7 +75,7 @@ insert (Node x i l r) y j
   | otherwise = error "Fix insert"
 
 captox :: (Ord a, Show a) => Int -> Multiset a -> Multiset a
-captox x Nil = Nil
+captox _ Nil = Nil
 captox x (Node v i l r) = if i < x
   then Node v x (captox x l) (captox x r)
   else Node v i (captox x l) (captox x r)
@@ -128,7 +128,7 @@ isSubset m1 m2 =
   if isMultiset m1 && isMultiset m2 then isSubset' m1 m2 else Invalid
 
 isSubset' :: Ord a => Multiset a -> Multiset a -> ThreeValuedBool
-isSubset' Nil m2 = TT
+isSubset' Nil _ = TT
 isSubset' (Node x i l r) m2
   | i <= isElement' x m2 =
     if isSubset' l m2 == TT && isSubset' r m2 == TT then TT else FF
