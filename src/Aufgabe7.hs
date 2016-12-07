@@ -65,6 +65,32 @@ isCanonicalMultisetRL (Node x i l r) y z
   | i <= 0 || x >= y || x <= z = False
   | otherwise = isCanonicalMultisetL l x && isCanonicalMultisetLR r x y
 
+insert :: Ord a => Multiset a -> a -> Int -> Multiset a
+insert Nil x i = Node x i Nil Nil
+insert (Node x i l r) y j
+  | y == x    = Node x (i + j) l              r
+  | y <  x    = Node x i       (insert l y j) r
+  | y >  x    = Node x i       l              (insert r y j)
+  | otherwise = error "Fix insert"
+
+captox :: (Ord a, Show a) => Int -> Multiset a -> Multiset a
+captox x Nil = Nil
+captox x (Node v i l r) = if i < x
+  then Node v x (captox x l) (captox x r)
+  else Node v i (captox x l) (captox x r)
+
+mkMultiset :: (Ord a, Show a) => Tree a -> Multiset a
+mkMultiset tree = captox 0 $ mkMultiset' tree Nil
+
+mkMultiset' :: (Ord a, Show a) => Tree a -> Multiset a -> Multiset a
+mkMultiset' Nil mset = mset
+mkMultiset' (Node x i l r) mset =
+  let lset = mkMultiset' l mset in
+    let rset = mkMultiset' r lset in
+      insert rset x i
+
+mkCanonicalMultiset :: (Ord a, Show a) => Tree a -> Multiset a
+mkCanonicalMultiset tree = captox 1 $ mkMultiset' tree Nil
 
 bigtree0 :: Tree Integer
 bigtree0 = (
@@ -74,3 +100,6 @@ bigtree0 = (
       Node 512 1 (Node 256 1 Nil Nil) (Node 1024 1 Nil Nil)
       )
   )
+
+bigtree1 :: Tree Integer
+bigtree1 = (Node 2048 (-1) bigtree0 bigtree0)
