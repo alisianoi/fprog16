@@ -122,6 +122,17 @@ isElement' v (Node w i l r)
   | v >  w = isElement' v r
   | otherwise = error "Fix isElement'"
 
+isSubset :: Ord a => Multiset a -> Multiset a -> ThreeValuedBool
+isSubset m1 m2 =
+  if isMultiset m1 && isMultiset m2 then isSubset' m1 m2 else Invalid
+
+isSubset' :: Ord a => Multiset a -> Multiset a -> ThreeValuedBool
+isSubset' Nil m2 = TT
+isSubset' (Node x i l r) m2
+  | i <= isElement' x m2 =
+    if isSubset' l m2 == TT && isSubset' r m2 == TT then TT else FF
+  | otherwise = FF
+
 bigtree0 :: Tree Integer
 bigtree0 = (
   Node 128 1 (
