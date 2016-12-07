@@ -92,6 +92,25 @@ mkMultiset' (Node x i l r) mset =
 mkCanonicalMultiset :: (Ord a, Show a) => Tree a -> Multiset a
 mkCanonicalMultiset tree = captox 1 $ mkMultiset' tree Nil
 
+flatten :: (Ord a, Show a) => Order -> Multiset a -> [(a, Int)]
+flatten order mset =
+  if isMultiset mset then
+    if order == Up then flattenLR mset else flattenRL mset
+  else
+    []
+
+flattenLR :: (Ord a, Show a) => Multiset a -> [(a, Int)]
+flattenLR Nil = []
+flattenLR (Node v i l r) = if i <= 0
+  then flattenLR l ++ flattenLR r
+  else flattenLR l ++ [(v, i)] ++ flattenLR r
+
+flattenRL :: (Ord a, Show a) => Multiset a -> [(a, Int)]
+flattenRL Nil = []
+flattenRL (Node v i l r) = if i <= 0
+  then flattenRL r ++ flattenRL l
+  else flattenRL r ++ [(v, i)] ++ flattenRL l
+
 bigtree0 :: Tree Integer
 bigtree0 = (
   Node 128 1 (
