@@ -133,6 +133,18 @@ isSubset' (Node x i l r) m2
     if isSubset' l m2 == TT && isSubset' r m2 == TT then TT else FF
   | otherwise = FF
 
+join :: (Ord a, Show a) => Multiset a -> Multiset a -> Multiset a
+join m1 m2 =
+  if isMultiset m1 && isMultiset m2
+  then mkCanonicalMultiset $ join' m1 m2 else Nil
+
+join' :: (Ord a, Show a) => Multiset a -> Multiset a -> Multiset a
+join' Nil m2 = m2
+join' (Node v i l r) m2 =
+  let lm = join' l m2 in
+    let rm = join' r lm in
+      insert rm v i
+
 bigtree0 :: Tree Integer
 bigtree0 = (
   Node 128 1 (
