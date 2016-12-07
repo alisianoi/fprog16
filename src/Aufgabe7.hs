@@ -3,6 +3,7 @@ module Aufgabe7 where
 data Tree a = Nil | Node a Int (Tree a) (Tree a) deriving (Eq,Ord,Show)
 
 type Multiset a = Tree a
+type Mset a = Multiset a
 
 data ThreeValuedBool = TT | FF | Invalid deriving (Eq,Show)
 data Order           = Up | Down deriving (Eq,Show)
@@ -146,11 +147,9 @@ join' (Node v i l r) m2 =
       insert rm v i
 
 meet :: (Ord a, Show a) => Multiset a -> Multiset a -> Multiset a
-meet m1 m2
-  | isMultiset m1 && isMultiset m2 = meet' Nil m1 m2
-  | otherwise                      = Nil
-
-type Mset a = Multiset a
+meet m1 m2 =
+  if isMultiset m1 && isMultiset m2
+  then mkCanonicalMultiset $ meet' Nil m1 m2 else Nil
 
 count' :: (Ord a, Show a) => Mset a -> a -> Int
 count' Nil _ = 0
@@ -166,16 +165,17 @@ meet' m0 (Node v i l r) m2 =
   let ml = meet' m0 l m2 in
     let mr = meet' ml r m2 in
       let j = count' m2 v in
-        insert mr v $ min i j
+        if min i j <= 0 then mr else insert mr v $ min i j
 
-bigtree0 :: Tree Integer
-bigtree0 = (
-  Node 128 1 (
-      Node 32 1 (Node 16 1 Nil Nil) (Node 64 1 Nil Nil)
-      ) (
-      Node 512 1 (Node 256 1 Nil Nil) (Node 1024 1 Nil Nil)
-      )
-  )
+subtract :: (Ord a, Show a) => Multiset a -> Multiset a -> Multiset a
+subtract m1 m2 =
+  if isMultiset m1 && isMultiset m2
+  then mkCanonicalMultiset $ subtract' Nil m1 m2 else Nil
 
-bigtree1 :: Tree Integer
-bigtree1 = (Node 2048 (-1) bigtree0 bigtree0)
+subtract' :: (Ord a, Show a) => Mset a -> Mset a -> Mset a -> Mset a
+subtract' m0 Nil _ = m0
+subtract' m0 (Node v i l r) m2 =
+  let ml = subtract' m0 l m2 in
+    let mr = subtract' ml r m2 in
+      let j = count' m2 v in
+        if i - j <= 0 then mr else insert mr v $ i - j
