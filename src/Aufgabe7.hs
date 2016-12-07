@@ -145,6 +145,29 @@ join' (Node v i l r) m2 =
     let rm = join' r lm in
       insert rm v i
 
+meet :: (Ord a, Show a) => Multiset a -> Multiset a -> Multiset a
+meet m1 m2
+  | isMultiset m1 && isMultiset m2 = meet' Nil m1 m2
+  | otherwise                      = Nil
+
+type Mset a = Multiset a
+
+count' :: (Ord a, Show a) => Mset a -> a -> Int
+count' Nil _ = 0
+count' (Node v i l r) w
+  | v == w = i
+  | v <  w = count' r w
+  | v >  w = count' l w
+  | otherwise = error "Fix count'"
+
+meet' :: (Ord a, Show a) => Mset a -> Mset a -> Mset a -> Mset a
+meet' m0 Nil _ = m0
+meet' m0 (Node v i l r) m2 =
+  let ml = meet' m0 l m2 in
+    let mr = meet' ml r m2 in
+      let j = count' m2 v in
+        insert mr v $ min i j
+
 bigtree0 :: Tree Integer
 bigtree0 = (
   Node 128 1 (
