@@ -1,0 +1,32 @@
+Punkte pro Testfall: 25; 0; Maximum: 25 
+
+Testfall: {-1-}show(iterate(+(Num(Pos,[One])))(Num(Pos,[Zero])) !! 77) ; Testfall FALSCH 
+Erwartet: {-1-}show(iterate(+(Num(Pos,[One])))(Num(Pos,[Zero])) !! 77) == "+2212" 
+Ausgabe:  {-1-}show(iterate(+(Num(Pos,[One])))(Num(Pos,[Zero])) !! 77)ERROR "Aufgabe5.hs/f1527346.hs":156 - Undefined variable "intercalate" == ERROR - Undefined data constructor "Zero"   
+
+Testfaelle OK: 0; Testfaelle FALSCH: 1
+Punkte : 0
+
+Punkte pro Testfall: 25; 0; Maximum: 25 
+
+Testfall: {-2-}show(take 9 (iterate(+(Num(Neg,[One])))(Num(Pos,[Zero])))) ; Testfall FALSCH 
+Erwartet: {-2-}show(take 9 (iterate(+(Num(Neg,[One])))(Num(Pos,[Zero])))) == "[+0,-1,-2,-10,-11,-12,-20,-21,-22]" 
+Ausgabe:  {-2-}show(take 9 (iterate(+(Num(Neg,[One])))(Num(Pos,[Zero]))))ERROR "Aufgabe5.hs/f1527346.hs":156 - Undefined variable "intercalate" == ERROR - Undefined data constructor "Zero"   
+
+Testfaelle OK: 0; Testfaelle FALSCH: 1
+Punkte : 0
+
+Punkte pro Testfall: 25; 0; Maximum: 50 
+
+Testfall: {-3.1-}let n=20;is=take n(iterate(+(Num(Pos,[One])))(Num(Pos,[Zero])));in take 1[(i,j)|i<-is,j<-is,i+j /= j+i] ; Testfall FALSCH 
+Erwartet: {-3.1-}let n=20;is=take n(iterate(+(Num(Pos,[One])))(Num(Pos,[Zero])));in take 1[(i,j)|i<-is,j<-is,i+j /= j+i] == [] 
+Ausgabe:  {-3.1-}let n=20;is=take n(iterate(+(Num(Pos,[One])))(Num(Pos,[Zero])));in take 1[(i,j)|i<-is,j<-is,i+j /= j+i]ERROR "Aufgabe5.hs/f1527346.hs":156 - Undefined variable "intercalate" == ERROR - Undefined data constructor "Zero"   
+Testfall: {-3.2-}let n=10;is=take n(iterate(+(Num(Pos,[One])))(Num(Pos,[Zero])));in take 1[(i,j)|i<-is,j<-is,i*j /= j*i] ; Testfall FALSCH 
+Erwartet: {-3.2-}let n=10;is=take n(iterate(+(Num(Pos,[One])))(Num(Pos,[Zero])));in take 1[(i,j)|i<-is,j<-is,i*j /= j*i] == [] 
+Ausgabe:  {-3.2-}let n=10;is=take n(iterate(+(Num(Pos,[One])))(Num(Pos,[Zero])));in take 1[(i,j)|i<-is,j<-is,i*j /= j*i]ERROR "Aufgabe5.hs/f1527346.hs":156 - Undefined variable "intercalate" == ERROR - Undefined data constructor "Zero"   
+
+Testfaelle OK: 0; Testfaelle FALSCH: 2
+Punkte : 0
+
+Punkte gesamt: 0
+

@@ -1,0 +1,28 @@
+Punkte pro Testfall: 10; 0; Maximum: 60 
+
+Testfall: {-1.1-}isNilTree nil == True; Testfall OK 
+Testfall: {-1.2-}let n ts=Nil:[Node i l r|i<-[1..2],l<-ts,r<-ts];in[t|t<-(n.n.n)[],isOrderedTree t] == [Nil,Node 1 Nil Nil,Node 1 Nil (Node 2 Nil Nil),Node 2 Nil Nil,Node 2 (Node 1 Nil Nil) Nil]; Testfall OK 
+Testfall: {-1.3-}let n ts=Nil:[Node i l r|i<-[1..3],l<-ts,r<-ts];in[t|t<-(n.n.n)[],isOrderedTree t] == [Nil,Node 1 Nil Nil,Node 1 Nil (Node 2 Nil Nil),Node 1 Nil (Node 3 Nil Nil),Node 2 Nil Nil,Node 2 Nil (Node 3 Nil Nil),Node 2 (Node 1 Nil Nil) Nil,Node 2 (Node 1 Nil Nil) (Node 3 Nil Nil),Node 3 Nil Nil,Node 3 (Node 1 Nil Nil) Nil,Node 3 (Node 2 Nil Nil) Nil]; Testfall OK 
+Testfall: {-1.4-}let n ts=Nil:[Node i l r|i<-[1..5],l<-ts,r<-ts];in length[t|t<-(n.n.n)[],isOrderedTree t] == 36; Testfall OK 
+Testfall: {-1.5-}let n ts=Nil:[Node i l r|i<-[1..5],l<-ts,r<-ts];in take 3[(j,t)|t<-(n.n.n)[],isOrderedTree t,j<-[1..5],(not.isOrderedTree.insert j)t] == []; Testfall OK 
+Testfall: {-1.6-}let n ts=Nil:[Node i l r|i<-[1..5],l<-ts,r<-ts];in take 3[t|t<-(n.n.n)[],isOrderedTree t,s<-[(delete 9.insert 9)t],flatten Up t/=flatten Up s] == []; Testfall OK 
+
+Testfaelle OK: 6; Testfaelle FALSCH: 0
+Punkte : 60
+
+Punkte pro Testfall: 20; 0; Maximum: 20 
+
+Testfall: {-2.1-}let n ts=Nil:[Node i l r|i<-[1],l<-ts,r<-ts];in take 3 [t|t<-(tail.n.n.n.n.n)[],1+(maxLength t)/=maxLength(Node 1 t Nil)] == []; Testfall OK 
+
+Testfaelle OK: 1; Testfaelle FALSCH: 0
+Punkte : 20
+
+Punkte pro Testfall: 20; 0; Maximum: 20 
+
+Testfall: {-2.2-}let n ts=Nil:[Node i l r|i<-[1],l<-ts,r<-ts];in[t|t<-(n.n.n.n.n)[],minLength t>minLength(Node 1 t t)] == []; Testfall OK 
+
+Testfaelle OK: 1; Testfaelle FALSCH: 0
+Punkte : 20
+
+Punkte gesamt: 100
+
