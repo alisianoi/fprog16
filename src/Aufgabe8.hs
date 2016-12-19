@@ -13,49 +13,58 @@ type Kennt      = GeladenerGast -> GeladenerGast -> Bool
 
 istSchickeriaEvent :: NimmtTeil -> Kennt -> Bool
 istSchickeriaEvent comes knows
-  | comes A &&       knows C C                    = True
-  | not $ comes A && knows C C                    = True
-  | comes A && not $ knows A A && knows B B       = True
-  | comes A && not $ knows A A && not $ knows B B = False
-  | otherwise                                     = True
+  |       comes A && knows C C                        = True
+  | not $ comes A && knows C C                        = True
+  | comes A && (not $ knows A A) &&        knows B B  = True
+  | comes A && (not $ knows A A) && (not $ knows B B) = False
+  | otherwise                                         = True
 
 istSuperSchick :: NimmtTeil -> Kennt -> Bool
 istSuperSchick comes knows
-  | comes A &&       knows C C                    = True
-  | not $ comes A && knows C C                    = True
-  | comes A && not $ knows A A && knows B B       = False
-  | comes A && not $ knows A A && not $ knows B B = False
-  | otherwise                                     = False
-
+  |       comes A && knows C C                        = True
+  | not $ comes A && knows C C                        = True
+  | comes A && (not $ knows A A) &&        knows B B  = False
+  | comes A && (not $ knows A A) && (not $ knows B B) = False
+  | otherwise                                         = False
 
 istVollProllig :: NimmtTeil -> Kennt -> Bool
 istVollProllig comes knows
-  | comes A &&       knows C C                    = False
-  | not $ comes A && knows C C                    = False
-  | comes A && not $ knows A A && knows B B       = False
-  | comes A && not $ knows A A && not $ knows B B = True
-  | otherwise                                     = False
+  |       comes A && knows C C                        = False
+  | not $ comes A && knows C C                        = False
+  | comes A && (not $ knows A A) &&        knows B B  = False
+  | comes A && (not $ knows A A) && (not $ knows B B) = True
+  | otherwise                                         = False
 
 schickeria :: NimmtTeil -> Kennt -> Schickeria
 schickeria comes knows
-  | comes A &&       knows C C                    = [A .. T]
-  | not $ comes A && knows C C                    = [B .. T]
-  | comes A && not $ knows A A && knows B B       = [B .. T]
-  | comes A && not $ knows A A && not $ knows B B = []
-  | otherwise                                     = [A .. B]
+  |       comes A && knows C C                        = [A .. T]
+  | not $ comes A && knows C C                        = [B .. T]
+  | comes A && (not $ knows A A) &&        knows B B  = [B .. T]
+  | comes A && (not $ knows A A) && (not $ knows B B) = []
+  | otherwise                                         = [A .. T]
 
 adabeis :: NimmtTeil -> Kennt -> Adabeis
 adabeis comes knows
-  | comes A &&       knows C C                    = []
-  | not $ comes A && knows C C                    = []
-  | comes A && not $ knows A A && knows B B       = [A]
-  | comes A && not $ knows A A && not $ knows B B = [A .. T]
-  | otherwise                                     = [C .. T]
+  |       comes A && knows C C                        = []
+  | not $ comes A && knows C C                        = []
+  | comes A && (not $ knows A A) &&        knows B B  = [A]
+  | comes A && (not $ knows A A) && (not $ knows B B) = [A .. T]
+  | otherwise                                         = [C .. T]
 
 nidabeis :: NimmtTeil -> Kennt -> Nidabeis
 nidabeis comes knows
-  | comes A &&       knows C C                    = []
-  | not $ comes A && knows C C                    = [A]
-  | comes A && not $ knows A A && knows B B       = []
-  | comes A && not $ knows A A && not $ knows B B = []
-  | otherwise                                     = []
+  |       comes A && knows C C                        = []
+  | not $ comes A && knows C C                        = [A]
+  | comes A && (not $ knows A A) &&        knows B B  = []
+  | comes A && (not $ knows A A) && (not $ knows B B) = []
+  | otherwise                                         = []
+
+only235 :: Integer -> Bool
+only235 x
+  | mod x 2 == 0 = only235 $ div x 2
+  | mod x 3 == 0 = only235 $ div x 3
+  | mod x 5 == 0 = only235 $ div x 5
+  | otherwise    = if x == 1 then True else False
+
+stream :: [Integer]
+stream = [x | x <- [1..], only235 x]
