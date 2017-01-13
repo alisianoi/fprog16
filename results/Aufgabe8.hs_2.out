@@ -1,0 +1,34 @@
+Punkte pro Testfall: 7; 0; Maximum: 34 
+
+Testfall: {-1.1-}let f _=True;g _ _=True;u(x:y:l)|x==y=u(y:l);u(x:l)=x:u l;u[]=[];in[([istSchickeriaEvent f g,istSuperSchick f g,istVollProllig f g],u(schickeria f g),u(adabeis f g),u(nidabeis f g))] == [([True,True,False],[A ..T],[],[])]; Testfall OK 
+Testfall: {-1.2-}let f x=x/=A;g _ _=True;u(x:y:l)|x==y=u(y:l);u(x:l)=x:u l;u[]=[];in[([istSchickeriaEvent f g,istSuperSchick f g,istVollProllig f g],u(schickeria f g),u(adabeis f g),u(nidabeis f g))] == [([True,True,False],[B ..T],[],[A])]; Testfall OK 
+Testfall: {-1.3-}let f _=True;g _ x=x/=A;u(x:y:l)|x==y=u(y:l);u(x:l)=x:u l;u[]=[];in[([istSchickeriaEvent f g,istSuperSchick f g,istVollProllig f g],u(schickeria f g),u(adabeis f g),u(nidabeis f g))] == [([True,False,False],[B ..T],[A],[])]; Testfall OK 
+Testfall: {-1.4-}let f _=True;g _ _=False;u(x:y:l)|x==y=u(y:l);u(x:l)=x:u l;u[]=[];in[([istSchickeriaEvent f g,istSuperSchick f g,istVollProllig f g],u(schickeria f g),u(adabeis f g),u(nidabeis f g))] == [([False,False,True],[],[A ..T],[])]; Testfall OK 
+Testfall: {-1.5-}let f _=True;g x y=elem y[A,B];u(x:y:l)|x==y=u(y:l);u(x:l)=x:u l;u[]=[];in[([istSchickeriaEvent f g,istSuperSchick f g,istVollProllig f g],u(schickeria f g),u(adabeis f g),u(nidabeis f g))] == [([True,False,False],[A,B],[C ..T],[])]; Testfall OK 
+
+Testfaelle OK: 5; Testfaelle FALSCH: 0
+Punkte : 34
+
+Punkte pro Testfall: 10; 0; Maximum: 30 
+
+Testfall: {-2.1-}[x|x<-take 37 stream,x`mod`2*x`mod`3/=0] == [1,5,25,125]; Testfall OK 
+Testfall: {-2.2-}[x|x<-take 50 stream,x`mod`7*x`mod`11==0] == []; Testfall OK 
+Testfall: {-2.3-}[x|x<-take 100 stream,x`mod`7*x`mod`11*x`mod`13==0] == []; Testfall OK 
+
+Testfaelle OK: 3; Testfaelle FALSCH: 0
+Punkte : 30
+
+Punkte pro Testfall: 6; 0; Maximum: 36 
+
+Testfall: {-3.1-}gen 2 == [(1,1,2,2),(1,2,2,2)]; Testfall OK 
+Testfall: {-3.2-}take 5[(a,b,c,d)|(a,b,c,d)<-gen 10,not( 1<=a &&1<=b&&1<=c&&1<=d&&a<=b&&a<c&&c<=d)] == []; Testfall OK 
+Testfall: {-3.3-}take 5[n|n<-[1..100],fil[(n,n,n,n)]==[]] == []; Testfall OK 
+Testfall: {-3.4-}[m|ts<-[[(n,n,n,n)|n<-[0..20]]],i<-[0,-1.. -20],(m,_,_,_)<-[sel i ts]] == [0..20]; Testfall OK 
+Testfall: {-3.5-}quadrupel 16 == [(1,12,9,10),(2,16,9,15)]; Testfall OK 
+Testfall: {-3.6-}(fil.gen)16 == [(1,12,9,10),(2,16,9,15)]; Testfall OK 
+
+Testfaelle OK: 6; Testfaelle FALSCH: 0
+Punkte : 36
+
+Punkte gesamt: 100
+

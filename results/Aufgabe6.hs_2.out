@@ -1,0 +1,30 @@
+Punkte pro Testfall: 15; 0; Maximum: 30 
+
+Testfall: (empty,isEmpty(empty),pop (push 1 empty),top2 empty) ; Testfall FALSCH 
+Erwartet: (empty,isEmpty(empty),pop (push 1 empty),top2 empty) == (Stk [],True,empty,Nothing) 
+Ausgabe:  (empty,isEmpty(empty),pop (push 1 empty),top2 empty) == (Stk [],True,Stk [],Nothing)   
+Testfall: [i|i<-[empty,NoStk],pop i/= NoStk] == []; Testfall OK 
+
+Testfaelle OK: 1; Testfaelle FALSCH: 1
+Punkte : 15
+
+Punkte pro Testfall: 10; 0; Maximum: 30 
+
+Testfall: let s _= Num(Neg,[One,Zero,One]);e1 = Exp (Cst(Num(Pos,[One,Zero,Two])))(Var B)Plus;in eval e1 s == 1; Testfall OK 
+Testfall: let is=[Cst(Num(Pos,[i]))|i<-[Zero ..Two]];s _=Num(Pos,[One]);f es=is++[Exp a b o|a<-es,b<-es,o<-[Plus,Times,Minus]]; in[eval e s|e<-((f.f)[])] == [0,1,2,0,0,0,1,0,-1,2,0,-2,1,0,1,2,1,0,3,2,-1,2,0,2,3,2,1,4,4,0]; Testfall OK 
+Testfall: let is=[Cst(Num(Pos,[i]))|i<-[Zero ..Two]];s _=Num(Pos,[One]);f es=is++[Exp a b o|a<-es,b<-es,o<-[Plus,Times,Minus]]; in sum[eval e s|e<-((f.f.f)[])] == 2703; Testfall OK 
+
+Testfaelle OK: 3; Testfaelle FALSCH: 0
+Punkte : 30
+
+Punkte pro Testfall: 14; 0; Maximum: 40 
+
+Testfall: {-3.1-}let is=[[Cop(Num(Pos,[i]))]|i<-[Zero ..Two]];s _=Num(Pos,[One]);f es=[Vop 'A']:is++[a++b++[o]|a<-es,b<-es,o<-[OpPlus,OpTimes,OpMinus]]; in [eval2 e s|e<-((f)[])] == [1,0,1,2]; Testfall OK 
+Testfall: {-3.2-}let is=[[Cop(Num(Pos,[i]))]|i<-[Zero ..Two]];s _=Num(Pos,[One]);f es=[Vop 'A']:is++[a++b++[o]|a<-es,b<-es,o<-[OpPlus,OpTimes,OpMinus]]; in [eval2 e s|e<-((f.f)[])] == let f es=1:[0..2]++[o a b|a<-es,b<-es,o<-[(+),(*),(-)]];in (f.f)[]; Testfall OK 
+Testfall: {-3.3-}let is=[[Cop(Num(Pos,[i]))]|i<-[Zero ..Two]];s _=Num(Pos,[One]);f es=[Vop 'A']:is++[a++b++[o]|a<-es,b<-es,o<-[OpPlus,OpTimes,OpMinus]]; in [eval2 e s|e<-((f.f.f)[])] == let f es=1:[0..2]++[o a b|a<-es,b<-es,o<-[(+),(*),(-)]];in (f.f.f)[]; Testfall OK 
+
+Testfaelle OK: 3; Testfaelle FALSCH: 0
+Punkte : 40
+
+Punkte gesamt: 85
+

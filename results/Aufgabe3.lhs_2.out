@@ -1,0 +1,36 @@
+Punkte pro Testfall: 9; 0; Maximum: 25 
+
+Testfall: {-1.1-}let n=99;in take 5[i|d<-[0..n],i<-[d,-d],i/=(num2int.int2num)i] == []; Testfall OK 
+Testfall: {-1.2-}let n=99;u(Num(s,l))=Num(s,(Zero:Zero:l));in take 5[i|d<-[0..n],i<-[d,-d],t<-[int2num i],t/=(canonize.u)t] == []; Testfall OK 
+Testfall: {-1.3-}let n=99;in take 5[i|d<-[0..n],i<-[d,-d],i/=(num2int.canonize.int2num)i] == []; Testfall OK 
+
+Testfaelle OK: 3; Testfaelle FALSCH: 0
+Punkte : 25
+
+Punkte pro Testfall: 13; 0; Maximum: 25 
+
+Testfall: {-2.1-}let n=40;in take 5[i|i<-[0..n],toInteger(i)/=num2int((iterate inc(Num(Pos,[Zero])))!!i)] == []; Testfall OK 
+Testfall: {-2.2-}let n=19;in take 5[i|i<-[0,-1.. -n],toInteger(i)/=num2int((iterate dec(Num(Pos,[Zero])))!!(-i))] == []; Testfall OK 
+
+Testfaelle OK: 2; Testfaelle FALSCH: 0
+Punkte : 25
+
+Punkte pro Testfall: 13; 0; Maximum: 25 
+
+Testfall: {-3.1-}let n=5;in take 5[(i,j)|d<-[0..n],e<-[0..d],i<-[e,-e],f<-[d-e],j<-[f,-f],i+j/=num2int(numAdd(int2num i)(int2num j))] == []; Testfall OK 
+Testfall: {-3.2-}let n=5;in take 5[(i,j)|d<-[0..n],e<-[0..d],i<-[e,-e],f<-[d-e],j<-[f,-f],i*j/=num2int(numMult(int2num i)(int2num j))] == []; Testfall OK 
+
+Testfaelle OK: 2; Testfaelle FALSCH: 0
+Punkte : 25
+
+Punkte pro Testfall: 9; 0; Maximum: 25 
+
+Testfall: {-4.1-}let a= curryFlip :: (((a,b) -> c) -> (b->(a->c)));in [] == []; Testfall OK 
+Testfall: {-4.2-}[curryFlip f 7 5|f<-[fst,snd]] == [5,7]; Testfall OK 
+Testfall: {-4.3-}[pairFlip f (3,0)|f<-[fst,snd]] == [0,3]; Testfall OK 
+
+Testfaelle OK: 3; Testfaelle FALSCH: 0
+Punkte : 25
+
+Punkte gesamt: 100
+

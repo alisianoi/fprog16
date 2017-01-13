@@ -1,0 +1,45 @@
+Punkte pro Testfall: 8; 0; Maximum: 64 
+
+Testfall: isMultiset (Node 8 3 (Node 1 2 Nil Nil) (Node 10 3 Nil Nil)) == True; Testfall OK 
+Testfall: isCanonicalMultiset (Node 8 3 (Node 1 2 Nil Nil) (Node 10 3 Nil Nil)) == True; Testfall OK 
+Testfall: {-1.1a-}let f t=Nil:[Node 1(-1)l r|l<-t,r<-t];in [e|e<-(f.f.f.f)[],isMultiset e] == [Nil]; Testfall OK 
+Testfall: {-1.1b-}let or(x:y:_)|x>=y=False;or(_:l)=or l;or _=True;fl(Node v _ l r)=(fl l)++[v]++(fl r);fl _=[];f t=Nil:[Node i 1 l r|i<-"abcd",l<-t,r<-t];in take 5[fl e|e<-(f.f.f.f)[],isMultiset e,(not.or.fl)e] == []; Testfall OK 
+Testfall: {-1.1c-}let or(x:y:_)|x>=y=False;or(_:l)=or l;or _=True;fl(Node v _ l r)=(fl l)++[v]++(fl r);fl _=[];f t=Nil:[Node i 1 l r|i<-"abcd",l<-t,r<-t];in length[fl e|e<-(f.f.f.f)[],isMultiset e] == 43; Testfall OK 
+Testfall: {-1.2-}let f t=Nil:[Node 1 0 l r|l<-t,r<-t];in length[e|e<-(f.f.f.f)[],isCanonicalMultiset e] == 1; Testfall OK 
+Testfall: {-1.3a-}let or(x:y:_)|x>=y=False;or(_:l)=or l;or _=True;fl(Node v _ l r)=(fl l)++[v]++(fl r);fl _=[];f t=Nil:[Node i 1 l r|i<-"abc",l<-t,r<-t];in take 5[(fl.mkMultiset)e|e<-(f.f.f.f)[],(not.or.fl.mkMultiset)e] == []; Testfall OK 
+Testfall: {-1.3b-}let f t=Nil:[Node i 1 l r|i<-"abc",l<-t,r<-t];fl(Node v _ l r)=(fl l)++[v]++(fl r);fl _=[];in take 5[(fl e,(fl.mkMultiset)e)|e<-(f.f.f.f)[],isMultiset e,fl e/=fl(mkMultiset e)] == []; Testfall OK 
+
+Testfaelle OK: 8; Testfaelle FALSCH: 0
+Punkte : 64
+
+Punkte pro Testfall: 6; 0; Maximum: 18 
+
+Testfall: {-1.5-}let f t=Nil:[Node i 1 l r|i<-"abcd",l<-t,r<-t];fl t=flatten Up t;in take 5[(fl e,(fl.mkMultiset)e)|e<-(f.f.f.f)[],isMultiset e,fl e/=fl(mkMultiset e)] == []; Testfall OK 
+Testfall: {-1.7a-}let f t=Nil:[Node i 1 l r|i<-"abc",l<-t,r<-t];ts=[e|e<-(f.f.f)[],isMultiset e];in take 3[a|a<-ts,isSubset a a/=TT] == []; Testfall OK 
+Testfall: {-1.7b-}let f t=Nil:[Node i 1 l r|i<-"abc",l<-t,r<-t];ts=[e|e<-(f.f.f)[],isMultiset e];in length[(a,b)|a<-ts,b<-ts,isSubset a b==FF,isSubset b a==FF] == 42; Testfall OK 
+
+Testfaelle OK: 3; Testfaelle FALSCH: 0
+Punkte : 18
+
+Punkte pro Testfall: 9; 0; Maximum: 18 
+
+Testfall: {-1.9-}let f t=Nil:[Node i 1 l r|i<-"abc",l<-t,r<-t];ts=[e|e<-(f.f.f)[],isMultiset e];in length[1|a<-ts,b<-ts,meet a b==Nil] == 39; Testfall OK 
+Testfall: {-1.10-}let f t=Nil:[Node i 1 l r|i<-"abc",l<-t,r<-t];ts=[e|e<-(f.f.f)[],isMultiset e];in length[1|a<-ts,b<-ts,subtract a b==Nil] == 48; Testfall OK 
+
+Testfaelle OK: 2; Testfaelle FALSCH: 0
+Punkte : 18
+
+Punkte pro Testfall: 5; 0; Maximum: 30 
+
+
+Testfaelle OK: 0; Testfaelle FALSCH: 0
+Punkte : 0
+
+Punkte pro Testfall: 0; 0; Maximum: 0 
+
+
+Testfaelle OK: 0; Testfaelle FALSCH: 0
+Punkte : 0
+
+Punkte gesamt: 100
+

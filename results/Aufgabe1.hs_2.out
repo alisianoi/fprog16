@@ -1,0 +1,48 @@
+Punkte pro Testfall: 6; 0; Maximum: 30 
+
+Testfall: {-1.1-}[facInv i|i<-[0..1]] == [-1,-1]; Testfall OK 
+Testfall: {-1.2-}take 7[facInv i|i<-[1..300],facInv i>0] == [2..5]; Testfall OK 
+Testfall: {-1.3-}take 1[facInv i|i<-[1,7..400],facInv i>0] == []; Testfall OK 
+Testfall: {-1.4-}take 2[facInv i|i<-[720..750],facInv i>0] == [6]; Testfall OK 
+Testfall: {-1.5-}take 2[facInv i|i<-[5040..5041],facInv i>0] == [7]; Testfall OK 
+
+Testfaelle OK: 5; Testfaelle FALSCH: 0
+Punkte : 30
+
+Punkte pro Testfall: 3; 0; Maximum: 9 
+
+Testfall: {-2.1-}extractDigits "" == []; Testfall OK 
+Testfall: {-2.2-}extractDigits "a1b2c3" == "123"; Testfall OK 
+Testfall: {-2.3-}extractDigits "0" == "0"; Testfall OK 
+
+Testfaelle OK: 3; Testfaelle FALSCH: 0
+Punkte : 9
+
+Punkte pro Testfall: 5; 0; Maximum: 10 
+
+Testfall: {-3.1-}convert "AB010" == 10; Testfall OK 
+Testfall: {-3.2-}convert "a5B007pL1234Q1151248cvK" == 500712341151248; Testfall OK 
+
+Testfaelle OK: 2; Testfaelle FALSCH: 0
+Punkte : 10
+
+Punkte pro Testfall: 7; 0; Maximum: 20 
+
+Testfall: {-4.1-}findLeftMostPrime "11x13" 2 == 11; Testfall OK 
+Testfall: {-4.2-}findLeftMostPrime "10x11x13" 2 == 11; Testfall OK 
+Testfall: {-4.3-}findLeftMostPrime "a5B007p1234L1151248cvK" 3 == 151; Testfall OK 
+
+Testfaelle OK: 3; Testfaelle FALSCH: 0
+Punkte : 20
+
+Punkte pro Testfall: 11; 0; Maximum: 31 
+
+Testfall: {-5.1-}findAllPrimes "a5B007p1234L1151248cvK" 2 == [71,23,41,11]; Testfall OK 
+Testfall: {-5.2-}[findAllPrimes (show(3^i::Integer)) 5|i<-[12,33,100]] == [[],[],[15377,20113,61129]]; Testfall OK 
+Testfall: {-5.3-}[findAllPrimes (show(3^i::Integer)) 4|i<-[12,33,100]] == [[],[],[5153,2011,1129,1297]]; Testfall OK 
+
+Testfaelle OK: 3; Testfaelle FALSCH: 0
+Punkte : 31
+
+Punkte gesamt: 100
+
