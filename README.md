@@ -17,6 +17,13 @@ cabal build
 cabal test
 ```
 
+Note: looks like Haskell setup changed on Archlinux, the configure
+step now looks like this:
+
+```
+cabal configure --disable-library-vanilla --enable-shared --enable-executable-dynamic
+```
+
 Part 1 of Task 8 was formulated in a very poor fashion and generally
 was not worth the trouble (too few points, too much effort and second
 guessing), otherwise you should be all set to go.
